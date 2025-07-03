@@ -14,6 +14,9 @@ First, install requirements:
 ```
 pip install -r requirements.txt
 ```
+Then extract demo database:
+`stock.zip -> stock.parquet`
+
 Then, run the app:
 ```
 streamlit run main.py
