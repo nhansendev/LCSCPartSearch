@@ -1,5 +1,7 @@
 import io
+import os
 import duckdb
+import zipfile
 import pandas as pd
 import streamlit as st
 from streamlit_components import (
@@ -55,7 +57,22 @@ def prepare_download():
 # Build Layout
 st.set_page_config("LCSC Parts Database", layout="wide")
 
-FILE = "stock.parquet"
+FILE = "stock.zip"
+if FILE and FILE.endswith("zip"):
+    ex_file = FILE.replace("zip", "parquet")
+    if not os.path.exists(ex_file):
+        # Extract
+        try:
+            with zipfile.ZipFile(FILE, "r") as zip_ref:
+                zip_ref.extractall(".")
+        except zipfile.BadZipFile:
+            print(f"Error: '{FILE}' is not a valid ZIP file.")
+        except FileNotFoundError:
+            print(f"Error: The file '{FILE}' was not found.")
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
+    FILE = ex_file
+
 if not FILE:
     with st.spinner("Preparing Database...", show_time=True):
         FILE = r"C:\Users\nate\Documents\KiCad\9.0\3rdparty\plugins\com_github_bouni_kicad-jlcpcb-tools\jlcpcb\parts-fts5.db"
