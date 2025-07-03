@@ -110,5 +110,5 @@ def query_filtered_data(
         pkg,
         mfg,
         price_tooltips,
-        data.drop(columns=["PriceMap"]),
+        data,
     )

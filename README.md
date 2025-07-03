@@ -9,18 +9,15 @@ A database search tool for finding LCSC parts, written in python with Streamlit
 - Provides cost estimates by quantity, including price breaks (where known)
 - Download filtered table results as xlsx files
 
+## Demo
+[Link](https://lcscpartsearchgit.streamlit.app/?embed_options=dark_theme)
+
 ## Setup
 First, install requirements:
 ```
 pip install -r requirements.txt
 ```
-Then extract demo database:
-`stock.zip -> stock.parquet`
-
 Then, run the app:
 ```
 streamlit run main.py
 ```
-
-## Demo
-WIP

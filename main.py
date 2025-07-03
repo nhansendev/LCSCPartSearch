@@ -57,7 +57,7 @@ def prepare_download():
 # Build Layout
 st.set_page_config("LCSC Parts Database", layout="wide")
 
-FILE = "stock.zip"
+FILE = "stock.parquet"
 if FILE and FILE.endswith("zip"):
     ex_file = FILE.replace("zip", "parquet")
     if not os.path.exists(ex_file):
