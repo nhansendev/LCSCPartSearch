@@ -1,3 +1,4 @@
 streamlit
 duckdb
+xlsxwriter
 ./streamlit_sortable_table-0.0.1-py3-none-any.whl
