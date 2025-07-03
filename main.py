@@ -55,7 +55,7 @@ def prepare_download():
 # Build Layout
 st.set_page_config("LCSC Parts Database", layout="wide")
 
-FILE = "full_db.parquet"
+FILE = "stock.parquet"
 if not FILE:
     with st.spinner("Preparing Database...", show_time=True):
         FILE = r"C:\Users\nate\Documents\KiCad\9.0\3rdparty\plugins\com_github_bouni_kicad-jlcpcb-tools\jlcpcb\parts-fts5.db"
