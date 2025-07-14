@@ -5,7 +5,7 @@ A database search tool for finding LCSC parts, written in python with Streamlit
 
 ## Features
 - Fast, responsive interface for browsing part database (tested to ~7,000,000 parts)
-- Filtering by category, part number, description, etc
+- Filtering and sorting by category, part number, description, etc
 - Provides cost estimates by quantity, including price breaks (where known)
 - Download filtered table results as xlsx files
 
