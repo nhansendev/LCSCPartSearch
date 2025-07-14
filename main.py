@@ -67,6 +67,18 @@ def prepare_download():
         st.session_state.where,
         st.session_state.sort_params,
         st.session_state.price_qty,
+        limit=25,
+    )
+
+    if total > 10000:
+        return None
+
+    total, first, second, pkg, mfg, price_tooltips, df = query_filtered_data(
+        con,
+        FILE,
+        st.session_state.where,
+        st.session_state.sort_params,
+        st.session_state.price_qty,
         limit=None,
     )
 
@@ -81,6 +93,7 @@ def prepare_download():
 # Build Layout
 st.set_page_config("LCSC Parts Database", layout="wide")
 
+# Messy import code for demo purposes
 FILE = "stock.parquet"
 if FILE and FILE.endswith("zip"):
     ex_file = FILE.replace("zip", "parquet")
@@ -99,6 +112,8 @@ if FILE and FILE.endswith("zip"):
 
 if not FILE:
     with st.spinner("Preparing Database...", show_time=True):
+        # TODO: replace with proper database download from LCSC
+        # Pull database from kicad plugin
         FILE = r"C:\Users\nate\Documents\KiCad\9.0\3rdparty\plugins\com_github_bouni_kicad-jlcpcb-tools\jlcpcb\parts-fts5.db"
         # If prepared database file doesn't exist, then make it
         FILE = sql_to_saved_df(FILE)
@@ -205,14 +220,17 @@ if subcol[1].button("Prepare Download"):
     with subcol[2], st.spinner("Preparing Download...", show_time=True):
         dld_data = prepare_download()
     subcol[2].markdown('<div class="center-button-container">', unsafe_allow_html=True)
-    download_btn = subcol[2].download_button(
-        "Download Table",
-        data=dld_data,
-        file_name="parts_table.xlsx",
-        on_click="ignore",
-        type="primary",
-        icon=":material/download:",
-    )
+    if dld_data is None:
+        subcol[2].text("Reduce query to\n<10k items")
+    else:
+        download_btn = subcol[2].download_button(
+            "Download Table",
+            data=dld_data,
+            file_name="parts_table.xlsx",
+            on_click="ignore",
+            type="primary",
+            icon=":material/download:",
+        )
     subcol[2].markdown("</div>", unsafe_allow_html=True)
 subcol[1].markdown("</div>", unsafe_allow_html=True)
 
